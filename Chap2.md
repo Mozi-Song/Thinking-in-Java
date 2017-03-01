@@ -37,3 +37,8 @@ double    | 0.0d      |
 | boolean     | False | 
 | short     | (short)0     | 
 | int  | 0        |  
+| long      | 0L         |
+| char      | '\u0000'(null) |
+| byte      | (byte)0   |
+| float     | 0.0f      |
+| double    | 0.0d      |
