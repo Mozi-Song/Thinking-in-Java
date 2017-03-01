@@ -32,3 +32,8 @@ byte      | (byte)0   |
 float     | 0.0f      |
 double    | 0.0d      |
 #### 6. 
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
