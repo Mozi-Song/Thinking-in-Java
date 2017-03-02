@@ -12,3 +12,13 @@
 理论上，finalize()会在垃圾处理之前被调用。但要注意，垃圾处理并不是一定会做，有时程序运行一直未达到内存的边界，那么垃圾处理在程序运行过程中可能不会被执行。（这是好事，因为程序运行完毕后，所有消耗的内存会被还给操作系统，而垃圾处理所需的开销相当于被节省了）在这种情况下，如果依赖于finalize()函数去做一些扫尾工作，会出现问题，因为不能保证finalize()会被调用。
 
 由于垃圾处理只与内存的使用有关，而finalize()的调用是与垃圾处理相联结的，因此**finalize()必须只与内存的释放有关**。考虑到内存中的那些对象会被gc处理，而Java中的一切都是对象，推断finalize()需要处理的可能是一些*类C*的内存分配场景。如java底层的原生方法中，如果调用了`malloc()`，就要在相应的finalize()中调用`free()`。
+#### 6.为什么在Java中为堆对象分配存储空间可达到其他语言在堆栈中创建存储空间差不多的速度? P123
+
+#### 7.简述“引用计数”(reference counting)垃圾处理器的原理和缺点。 P123
+
+#### 8. 
+
+
+#### 疑惑：
+English P123 (GC: 前面讲Java中堆对象分配与其他语言中的栈分配差不多快——因为Java内存有如一个传送带。然后：)
+You might observe that the heap isn’t in fact a conveyor belt, and if you treat it that way, you’ll start paging memory—moving it on and off disk, so that you can appear to have more memory than you actually do. Paging significantly impacts performance. Eventually, after you create enough objects, you’ll run out of memory. The trick is that the garbage collector steps in, and while it collects the garbage it compacts all the objects in the heap so that you’ve effectively moved the “heap pointer” closer to the beginning of the conveyor belt and farther away from a page fault.
