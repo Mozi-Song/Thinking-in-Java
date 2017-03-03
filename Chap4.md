@@ -22,6 +22,19 @@ Java的垃圾处理机制使得它的内存对程序来说有如一条传送带�
 #### 疑惑：
 English P123 (GC: 前面讲Java中堆对象分配与其他语言中的栈分配差不多快——因为Java内存有如一个传送带。然后：)
 You might observe that the heap isn’t in fact a conveyor belt, and if you treat it that way, you’ll start paging memory—moving it on and off disk, so that you can appear to have more memory than you actually do. Paging significantly impacts performance. Eventually, after you create enough objects, you’ll run out of memory. The trick is that the garbage collector steps in, and while it collects the garbage it compacts all the objects in the heap so that you’ve effectively moved the “heap pointer” closer to the beginning of the conveyor belt and farther away from a page fault.
-
+...any non-dead object must ultimately be traceable back to a reference that lives either on the stack or in static storage.
+```(from: http://stackoverflow.com/questions/19623563/where-does-java-reference-variable-stored)
+[ STACK ]                          [ HEAP ] 
+int a: 10;                     ->  MyWrapperObject@21f03b70====||
+double b: 10.4;                |   ||     int someField: 11    ||
+MyWrapperObject@21f03b70 ------|   ||     String@10112222  ---------- 
+......                             ||==========================||    |
+                                                                     |
+                                                                     |
+                                    String@10112222============||<----
+                                    || ...                     ||
+                                    || ...                     ||
+                                    }}=========================||
+```
 P124
 当然，对象从一个地方挪到另一个地方的时候，对该对象的所有引用都必须改变。其中从堆或静态存储区域到对象的引用马上就可以改变，但可能还有指向该对象的另一些引用，它们要在以后“遍历”的时候才会遇到。那些引用要等到发现的时候才会修改（想象一张表吧，它将老地址对应成新地址）。
