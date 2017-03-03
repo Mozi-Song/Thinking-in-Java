@@ -16,16 +16,18 @@
 Java的垃圾处理机制使得它的内存对程序来说有如一条传送带，创建堆中的存储空间只涉及堆指针的移动，因此速度接近于其他语言在栈上分配存储空间的速度。
 #### 7.简述“引用计数”(reference counting)垃圾处理器的原理和缺点。 P123
 每个对象会维护一个“引用计数器”，记录指向它的指针的个数，这个计数在程序运行期间会随着指针的增加或减少而变动。垃圾收集器会遍历整个对象列表，找到引用计数为0的对象把它删掉。 缺点：对于对象之间循环引用的情况需要另外处理，耗费时间。
-#### 8. 
+#### 8. 简述JVM的自适应垃圾处理机制? Eng P123-124
 
+====ｔｏ： P124 middle
 
+大神讲：垃圾回收先跳过，先熟悉语法和API，先广后深
 #### 疑惑：
 English P123 (GC: 前面讲Java中堆对象分配与其他语言中的栈分配差不多快——因为Java内存有如一个传送带。然后：)
 You might observe that the heap isn’t in fact a conveyor belt, and if you treat it that way, you’ll start paging memory—moving it on and off disk, so that you can appear to have more memory than you actually do. Paging significantly impacts performance. Eventually, after you create enough objects, you’ll run out of memory. The trick is that the garbage collector steps in, and while it collects the garbage it compacts all the objects in the heap so that you’ve effectively moved the “heap pointer” closer to the beginning of the conveyor belt and farther away from a page fault.
 ...any non-dead object must ultimately be traceable back to a reference that lives either on the stack or in static storage.
 ```
-
 (from: http://stackoverflow.com/questions/19623563/where-does-java-reference-variable-stored)
+//On the stack, primitives(int, double, boolean, etc) and object *references* pointing to the heap are stored.
 [ STACK ]                          [ HEAP ] 
 int a: 10;                     ->  MyWrapperObject@21f03b70====||
 double b: 10.4;                |   ||     int someField: 11    ||
@@ -36,8 +38,7 @@ MyWrapperObject@21f03b70 ------|   ||     String@10112222  ----------
                                     String@10112222============||<----
                                     || ...                     ||
                                     || ...                     ||
-                                    }}=========================||
-                                    
+                                    }}=========================||                                  
 ```
 P124
 当然，对象从一个地方挪到另一个地方的时候，对该对象的所有引用都必须改变。其中从堆或静态存储区域到对象的引用马上就可以改变，但可能还有指向该对象的另一些引用，它们要在以后“遍历”的时候才会遇到。那些引用要等到发现的时候才会修改（想象一张表吧，它将老地址对应成新地址）。
