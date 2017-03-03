@@ -13,9 +13,9 @@
 
 由于垃圾处理只与内存的使用有关，而finalize()的调用是与垃圾处理相联结的，因此**finalize()必须只与内存的释放有关**。考虑到内存中的那些对象会被gc处理，而Java中的一切都是对象，推断finalize()需要处理的可能是一些*类C*的内存分配场景。如java底层的原生方法中，如果调用了`malloc()`，就要在相应的finalize()中调用`free()`。
 #### 6.为什么在Java中为堆对象分配存储空间可达到其他语言在堆栈中创建存储空间差不多的速度? P123
-
+Java的垃圾处理机制使得它的内存对程序来说有如一条传送带，创建堆中的存储空间只涉及堆指针的移动，因此速度接近于其他语言在栈上分配存储空间的速度。
 #### 7.简述“引用计数”(reference counting)垃圾处理器的原理和缺点。 P123
-
+每个对象会维护一个“引用计数器”，记录指向它的指针的个数，这个计数在程序运行期间会随着指针的增加或减少而变动。垃圾收集器会遍历整个对象列表，找到引用计数为0的对象把它删掉。 缺点：对于对象之间循环引用的情况需要另外处理，耗费时间。
 #### 8. 
 
 
@@ -24,5 +24,4 @@ English P123 (GC: 前面讲Java中堆对象分配与其他语言中的栈分配�
 You might observe that the heap isn’t in fact a conveyor belt, and if you treat it that way, you’ll start paging memory—moving it on and off disk, so that you can appear to have more memory than you actually do. Paging significantly impacts performance. Eventually, after you create enough objects, you’ll run out of memory. The trick is that the garbage collector steps in, and while it collects the garbage it compacts all the objects in the heap so that you’ve effectively moved the “heap pointer” closer to the beginning of the conveyor belt and farther away from a page fault.
 
 P124
-当然，对象从一个地方挪到另一个地方的时候，对该对象的所有引用都必须改变。其中从堆或静态存储区域到对象的引用马上就可以改变，但可能还有指向该对象的另一些引用，
-它们要在以后“遍历”的时候才会遇到。那些引用要等到发现的时候才会修改（想象一张表吧，它将老地址对应成新地址）。
+当然，对象从一个地方挪到另一个地方的时候，对该对象的所有引用都必须改变。其中从堆或静态存储区域到对象的引用马上就可以改变，但可能还有指向该对象的另一些引用，它们要在以后“遍历”的时候才会遇到。那些引用要等到发现的时候才会修改（想象一张表吧，它将老地址对应成新地址）。
