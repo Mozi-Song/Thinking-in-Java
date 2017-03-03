@@ -18,9 +18,15 @@ Java的垃圾处理机制使得它的内存对程序来说有如一条传送带�
 每个对象会维护一个“引用计数器”，记录指向它的指针的个数，这个计数在程序运行期间会随着指针的增加或减少而变动。垃圾收集器会遍历整个对象列表，找到引用计数为0的对象把它删掉。 缺点：对于对象之间循环引用的情况需要另外处理，耗费时间。
 #### 8. 简述JVM的自适应垃圾处理机制? Eng P123-124
 
-====to: Eng P124 middle
+====to: Eng P124 middle（4.3-垃圾回收需重看。大神讲：垃圾回收先跳过，先熟悉语法和API，先广后深）
 
-//大神讲：垃圾回收先跳过，先熟悉语法和API，先广后深
+#### 9. 如果将一个类成员在构造函数中进行初始化，实际运行时，构造函数被调用之前，该成员还会被默认初始化吗? P128
+
+
+====to: P129 Programm
+
+
+
 #### 疑惑：
 English P123 (GC: 前面讲Java中堆对象分配与其他语言中的栈分配差不多快——因为Java内存有如一个传送带。然后：)
 You might observe that the heap isn’t in fact a conveyor belt, and if you treat it that way, you’ll start paging memory—moving it on and off disk, so that you can appear to have more memory than you actually do. Paging significantly impacts performance. Eventually, after you create enough objects, you’ll run out of memory. The trick is that the garbage collector steps in, and while it collects the garbage it compacts all the objects in the heap so that you’ve effectively moved the “heap pointer” closer to the beginning of the conveyor belt and farther away from a page fault.
