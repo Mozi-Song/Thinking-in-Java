@@ -24,7 +24,13 @@ Java的垃圾处理机制使得它的内存对程序来说有如一条传送带�
 会。在调用构造函数前，Java会将每个类成员做默认初始化（原始类型初始化到0，对象初始化到null）。初始化的顺序由成员在类中的定义决定。
 
 #### 10.简述Java创建一个对象时发生的事情。 Eng P130
-
+  1. 当用户创建某类的对象或使用该类的静态变量/方法时，Java解释器会在classpath中寻找.class文件并加载。
+  2. 进行所有的静态初始化。即某一个类的静态初始化只进行一次。
+  3. 在内存堆中按需分配该对象的内存。
+  4. 初始化该类的所有非静态变量至0或null。
+  5. 按照类中变量的定义对变量进行初始化。
+  6. 调用构造函数。  
+  
 #### 疑惑：
 English P123 (GC: 前面讲Java中堆对象分配与其他语言中的栈分配差不多快——因为Java内存有如一个传送带。然后：)
 You might observe that the heap isn’t in fact a conveyor belt, and if you treat it that way, you’ll start paging memory—moving it on and off disk, so that you can appear to have more memory than you actually do. Paging significantly impacts performance. Eventually, after you create enough objects, you’ll run out of memory. The trick is that the garbage collector steps in, and while it collects the garbage it compacts all the objects in the heap so that you’ve effectively moved the “heap pointer” closer to the beginning of the conveyor belt and farther away from a page fault.
