@@ -32,10 +32,19 @@ Java的垃圾处理机制使得它的内存对程序来说有如一条传送带�
   6. 调用构造函数。  
   
 #### 11. 数组定义的格式是什么? P134
+int[] a1;
+
+或： int a1[];
+#### 12. 若想定义一个int数组，该数组的长度由某函数/某变量在运行时间决定，应该怎样定义? P136
+
+#### 13. 如何初始化一个非基类对象的数组?以Integer类为例。 P136-137
+
+#### 14. 如何初始化一个“变参表”，如一个Object数组，但其中的元素为Object的不同子类对象? P138
 
 #### 疑惑：
 English P123 (GC: 前面讲Java中堆对象分配与其他语言中的栈分配差不多快——因为Java内存有如一个传送带。然后：)
 You might observe that the heap isn’t in fact a conveyor belt, and if you treat it that way, you’ll start paging memory—moving it on and off disk, so that you can appear to have more memory than you actually do. Paging significantly impacts performance. Eventually, after you create enough objects, you’ll run out of memory. The trick is that the garbage collector steps in, and while it collects the garbage it compacts all the objects in the heap so that you’ve effectively moved the “heap pointer” closer to the beginning of the conveyor belt and farther away from a page fault.
+
 ...any non-dead object must ultimately be traceable back to a reference that lives either on the stack or in static storage.
 ```
 (from: http://stackoverflow.com/questions/19623563/where-does-java-reference-variable-stored)
