@@ -12,13 +12,14 @@ final关键字告诉compiler当前数据域保持不变。用于原始类型数�
 如果定义时赋给该对象的值为定值，则为编译时间常数；若赋的是运行时间值（如`final int i = (int)(Math.random()*20)`）则该常数的值是运行时间决定的。
 要保证一个域为编译时间常数，该域必须为原始数据类型，必须用final关键字修饰，且必须在定义时进行赋值。
 #### 4.Java语法是如何保证final域在使用之前一定被初始化？ Eng P185
-
+Java会强制程序员在定义该域时或在构造函数中对域进行初始化。
 #### 5.将方法的参数设为final会起到什么效果？ Eng P185
+设为final的参数在方法中不能再进行赋值。如`f(final int i){i++;}`非法；及`f(Car c){c = new Car();} `也非法， 不能通过编译。
 #### 6.将一个方法设为final会起到什么效果？ 将一个private方法设为final会起到什么效果？Eng P186
+final方法不能被子类重写。在早版本的Java中，final方法会被编译器设为inline方法，即不需要在栈上加载和清除方法参数，而是将方法体直接复制到调用方法的地方。这样会减少方法调用的开销，所以许多人用final做效率提升。然而，如果该方法本身很大，则它带来的臃肿抵消了效率的提升。高版本Java中作了一些改进，不提倡用户用final修饰方法来提高效率，在使用final关键字时只需考虑是否愿意该方法被重写即可。
+
+private方法自动是final的，因为无法access，也就无法继承。private方法可以加上final关键字，但加不加效果相同。
 #### 7.在父类中定义一个private方法，在子类中试图将该方法覆盖为public方法，然后使用upcasting去调用该子类的该方法，会如何？为什么？ Eng P187
+会无法通过编译。既然父类中该方法为private，说明父类向子类提供的接口中并不存在这个方法。子类中重新声明一个名字相同的public方法，其实并不是重写，而是生成了一个新方法。由于父类给出的接口中无此方法，使用upcasting时调用此方法是非法的。
 #### 8.将一个类设为final会起到什么效果; final类中的域和方法是否必须为final？ Eng P187-188
-#### 9.Java中的类一般是何时被加载的？static对象和static代码块又是何时被加载的？ Eng P189
-#### 10.简述创建一个子类对象时发生的事情。 Eng P189-190
-#### 疑惑：
-Eng P182
-One of the clearest ways to determine whether you should use composition or inheritance is to ask whether you’ll ever need to upcast from your new class to the base class. If you must upcast, then inheritance is necessary, but if you don’t need to upcast, then you should look closely at whether you need inheritance. The Polymorphism chapter provides one of the most compelling reasons for upcasting, but if you remember to ask “Do I need to upcast?” you’ll have a good tool for deciding between composition and inheritance.
+final类不能被继承。由此，final类中的方法也自动是final的d
