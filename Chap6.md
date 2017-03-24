@@ -22,4 +22,11 @@ private方法自动是final的，因为无法access，也就无法继承。priva
 #### 7.在父类中定义一个private方法，在子类中试图将该方法覆盖为public方法，然后使用upcasting去调用该子类的该方法，会如何？为什么？ Eng P187
 会无法通过编译。既然父类中该方法为private，说明父类向子类提供的接口中并不存在这个方法。子类中重新声明一个名字相同的public方法，其实并不是重写，而是生成了一个新方法。由于父类给出的接口中无此方法，使用upcasting时调用此方法是非法的。
 #### 8.将一个类设为final会起到什么效果; final类中的域和方法是否必须为final？ Eng P187-188
-final类不能被继承。由此，final类中的方法也自动是final的d
+final类不能被继承。由此，final类中的方法也自动是final的，不管有没有final关键字效果都相同。但final类中的域不一定要设为final，视用户是否希望该域保持恒定而定。
+#### 9.Java中的类一般是何时被加载的？static对象和static代码块又是何时被加载的？ Eng P189
+Java中的所有东西都是对象。每个类经过编译后存在于一个单独的文件中，该文件在第一次被用到时会被加载。“第一次被用到”指产生该类的第一个对象，或某静态域/静态方法被用到时。
+static对象和代码块是在上述文件第一次被加载时按照定义次序一次性被加载的。
+#### 10.简述创建一个子类对象时发生的事情。 Eng P189-190
+首先java加载器会找到这个子类的编译文件，当它发现该子类有父类时，会加载其父类直至根父类；然后从根父类开始进行static初始化，然后进行第二根父类的static初始化，一直到子类的初始化；随后，子类中的所有域会被初始化为0或null；然后加载父类的构造函数，然后子类的域按定义次序进行初始化，最后执行子类的构造函数#### 疑惑：
+Eng P182
+One of the clearest ways to determine whether you should use composition or inheritance is to ask whether you’ll ever need to upcast from your new class to the base class. If you must upcast, then inheritance is necessary, but if you don’t need to upcast, then you should look closely at whether you need inheritance. The Polymorphism chapter provides one of the most compelling reasons for upcasting, but if you remember to ask “Do I need to upcast?” you’ll have a good tool for deciding between composition and inheritance.。
