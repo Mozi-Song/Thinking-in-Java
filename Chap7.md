@@ -24,6 +24,8 @@ Java中的方法，除非有static或final关键字，否则一律自动被late 
 3）子类构造函数
 #### 8.对于合成类中的对象域，为什么要尽可能地在定义的时候将他们初始化？ Eng P206
 因为构造函数的执行很可能基于“这些对象域已经有效存在”的假设。
-#### 9.对于合成类的cleanup顺序,需要遵循哪两个原则? Eng P2081#### 
+#### 9.对于合成类的cleanup顺序,需要遵循哪两个原则? Eng P208
 1）子类先于父类进行cleanup（因为子类的cleanup方法有可能依赖于父类域/方法的存在）；
-2重写polymorphism/ReferenceCounting.java Eng P208-209
+
+2)后生成的对象先进行cleanup（因为后生成的对象的cleanup方法可能依赖先生成的对象）
+#### 10.重写polymorphism/ReferenceCounting.java Eng P208-209
