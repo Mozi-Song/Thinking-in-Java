@@ -1,0 +1,18 @@
+ 第11章 接口
+ ====================
+ #### 1. 抽象方法的定义 Eng P219
+ #### 2. 抽象类的定义 Eng P219
+ #### 3. 抽象类是否一定需要包含抽象方法？ Eng P220
+ #### 4. 接口的定义 Eng P222
+ #### 5. 接口是否都可以加public关键字？ Eng P219Eng P223
+ #### 6. 接口中的域的自带属性？ Eng P223
+ #### 7. 接口中的方法的自带属性是什么，需要注意什么？ Eng P223
+ #### 8. 为什么接口提高了代码的重用率？ Eng P225
+ #### 9. 什么叫Strategy design pattern？ Eng P226
+ #### 10. 什么是Adapter design pattern? Eng P227
+ #### 11. 多重继承的规则是什么？ Eng P228
+ #### 12. 一个多重继承的类的upcasting是怎样的？ Eng P231
+ #### 13. 使用interface的两个核心目的？Eng P232
+ #### ####疑惑：
+ P230. "Multiple inheritance": 
+ Because an interface has no implementation at all—that is, there is no storage associated with an interface—there’s nothing to prevent many interfaces from being combined.4。1
