@@ -29,3 +29,51 @@ Java中的方法，除非有static或final关键字，否则一律自动被late 
 
 2)后生成的对象先进行cleanup（因为后生成的对象的cleanup方法可能依赖先生成的对象）
 #### 10.重写polymorphism/ReferenceCounting.java Eng P208-209
+```
+public class ReferenceCountingMozi{
+	public static void main(String[] args){
+		Shared s = new Shared();
+		Composing[] c = new Composing[10];
+		for(int i = 0; i <= 9; i++){
+			c[i] = new Composing(s);
+		}
+		for(int j = 9; j >= 0; j--){
+			c[j].dispose();
+		}
+	}
+}
+
+class Shared{
+	public static int counter;
+	private final int ID = counter++;
+	private int referenceCounter;
+	public Shared(){
+		System.out.println("creating Shared " + ID);
+	}
+	public void dispose(){
+		if(--referenceCounter == 0){
+			System.out.println("Shared " + ID + " disposed.");
+		}
+	}	
+	public void addReference(){
+		referenceCounter++;
+	}
+}
+
+class Composing{
+	public static int counter;
+	private final int ID = counter++;
+	private Shared s;
+	
+	public Composing(Shared s){
+		this.s = s;
+		s.addReference();
+		System.out.println("creating Composing " + ID);
+	}
+	public void dispose(){
+		System.out.println("Disposing Composing " + ID);
+		this.s.dispose();		
+	}
+	
+}
+```
