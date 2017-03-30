@@ -23,9 +23,11 @@
  #### 21. 类中的嵌套interface和interface中嵌套interface在定义上有何区别?  Eng P238
  #### 22. 笔记：Notice that when you implement an interface, you are not required to implement any interfaces nested within. Also,  **private** interfaces cannot be implemented outside of their defining classes.
  #### 23. 如何避免过度使用interface使代码太过复杂？Eng P241
- ####疑惑：
+ #### 疑惑：
+ 
  P230. "Multiple inheritance": 
- Because an interface has no implementation at all—that is, there is no storage associated with an interface—there’s nothing to prevent many interfaces from being combined.4。1
+ Because an interface has no implementation at all—that is, there is no storage associated with an interface—there’s nothing to prevent many interfaces from being combined.
+ 
  P236. "Nesting Interface":
 ```java
  //: interfaces/nesting/NestingInterfaces.java
