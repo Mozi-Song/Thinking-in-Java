@@ -21,7 +21,8 @@
  #### 19. 如何看待interface中的域与enum类之间的关系? Eng P236
  #### 20. interface的域是否属于该interface? Eng P236
  #### 21. 类中的嵌套interface和interface中嵌套interface在定义上有何区别?  Eng P238
- #### 22.
+ #### 22. 笔记：Notice that when you implement an interface, you are not required to implement any interfaces nested within. Also,  **private** interfaces cannot be implemented outside of their defining classes.
+ #### 23. 如何避免过度使用interface使代码太过复杂？Eng P241
  ####疑惑：
  P230. "Multiple inheritance": 
  Because an interface has no implementation at all—that is, there is no storage associated with an interface—there’s nothing to prevent many interfaces from being combined.4。1
@@ -119,5 +120,9 @@ public class NestingInterfaces {
 } ///:~
 ```
  ...**A.DImp2** can only be used as itself. You are not allowed to mention the fact that it implements the **private** interface D, so implementing a **private** interface is a way to force the definition of the methods in that interface without adding any type information (that is, without allowing any upcasting).
- (疑惑点:
+ (疑惑点:以上一段英文表示class中虽然可以定义private interface，但可以有一个嵌套的public class来实现该interface。private interface的意义在于隐藏了D <- DImp2这层继承关系，所以DImp2不能被upcast到D。然而以上代码`a.receiveD(a.new DImp2());`可以通过编译，这证明compilor是了解D <- DImp2这层继承关系的。目前尚不清楚这个情景的应用意义和特殊之处。）
  
+ P240.Interfaces and Factories: 
+ ...Without the Factory Method, your code would somewhere have to specify the exact type of **Service** being created, so that it could call the appropriate constructor.
+ 
+Why would you want to add this extra level of indirection? One common reason is to create a framework.
