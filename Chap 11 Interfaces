@@ -22,11 +22,11 @@
  #### 20. interface的域是否属于该interface? Eng P236
  #### 21. 类中的嵌套interface和interface中嵌套interface在定义上有何区别?  Eng P238
  #### 22.
- #### ####疑惑：
+ ####疑惑：
  P230. "Multiple inheritance": 
  Because an interface has no implementation at all—that is, there is no storage associated with an interface—there’s nothing to prevent many interfaces from being combined.4。1
  P236. "Nesting Interface":
- ```
+```
  //: interfaces/nesting/NestingInterfaces.java
 package interfaces.nesting;
 
