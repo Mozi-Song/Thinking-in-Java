@@ -89,7 +89,9 @@ class FilterAdapter implements Processor {
  2）一个类和一个接口中的函数签名相同：
  
  	2.1)它们的返回值相同：　不会出现问题，且子类不需再实现接口中的这个函数，因为已被父类实现。
-	2.2)它们的返回值不同： 不能通过编译。#### 18. 使用interface而非class作为方法参数的好处? Eng P235
+	2.2)它们的返回值不同： 不能通过编译。
+
+ #### 18. 使用interface而非class作为方法参数的好处? Eng P235
  #### 19. 如何看待interface中的域与enum类之间的关系? Eng P236
  #### 20. interface的域是否属于该interface? Eng P236
  #### 21. 类中的嵌套interface和interface中嵌套interface在定义上有何区别?  Eng P238
@@ -100,8 +102,9 @@ class FilterAdapter implements Processor {
  P230. "Multiple inheritance": 
  Because an interface has no implementation at all—that is, there is no storage associated with an interface—there’s nothing to prevent many interfaces from being combined.
  
- P236. "Nesting Interface": ```java
- //: interfaces/nesting/NestingInterfaces.java
+ P236. "Nesting Interface": 
+ ```java
+//: interfaces/nesting/NestingInterfaces.java
 package interfaces.nesting;
 
 class A {
@@ -131,13 +134,16 @@ class A {
   }
   public class DImp2 implements D {
     public void f() {}
-  } public D getD() { return new DImp2(); }
+  }
+  public D getD() { return new DImp2(); }
   private D dRef;
   public void receiveD(D d) {
     dRef = d;
     dRef.f();
   }
-}	interface E {
+}	
+
+interface E {
   interface G {
     void f();
   }
@@ -158,7 +164,8 @@ public class NestingInterfaces {
     public void f() {}
   }
   // Cannot implement a private interface except
-  // within that interface's defining class: //! class DImp implements A.D {
+  // within that interface's defining class:
+  //! class DImp implements A.D {
   //!  public void f() {}
   //! }
   class EImp implements E {
@@ -187,7 +194,10 @@ public class NestingInterfaces {
     a2.receiveD(a.getD());
   }
 } ///:~
-```...**A.DImp2** can only be used as itself. You are not allowed to mention the fact that it implements the **private** interface D, so implementing a **private** interface is a way to force the definition of the methods in that interface without adding any type information (that is, without allowing any upcasting).
+```
+
+...**A.DImp2** can only be used as itself. You are not allowed to mention the fact that it implements the **private** interface D, so implementing a **private** interface is a way to force the definition of the methods in that interface without adding any type information (that is, without allowing any upcasting).
+
  (疑惑点:以上一段英文表示class中虽然可以定义private interface，但可以有一个嵌套的public class来实现该interface。private interface的意义在于隐藏了D <- DImp2这层继承关系，所以DImp2不能被upcast到D。然而以上代码`a.receiveD(a.new DImp2());`可以通过编译，这证明compilor是了解D <- DImp2这层继承关系的。目前尚不清楚这个情景的应用意义和特殊之处。）
  
  P240.Interfaces and Factories: 
