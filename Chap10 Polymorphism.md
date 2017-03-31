@@ -86,4 +86,4 @@ class Composing{
 
 设计时选择合成/继承的guideline是：要表现不同行为时选择继承；要表现状态变化时选择合成。
 #### 13. 简述RTTI的含义。 Eng P216
-Downcast时，需要有某种机制来保证cast是正确的。该机制在runtime检查被downcast的对象是否确实属于目的类，若不是则返回**ClassCastException**。这个机制叫做RTTI(Runtime Type Identification)。
+Downcast时，需要有某种机制来保证cast是正确的。该机制在runtime检查被downcast的对象是否确实属于要cast到的那个类，若不是则返回**ClassCastException**。这个机制叫做RTTI(Runtime Type Identification)。
