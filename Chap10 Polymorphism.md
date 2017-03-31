@@ -79,6 +79,11 @@ class Composing{
 ```
 
 #### 11. Java SE5引入了covariance return types。解释其含义。 Eng P212
+子类在重写父类中的某方法时，可将返回类型设为父类方法返回类型的子类。
 
 #### 12. State Pattern的意义是什么(->Thinking in Patterns (with Java) www.MindView.com)； 设计时选择合成/继承的guideline是什么？ Eng P213
+用一个域表现动态state。由于这个域在runtime可被绑定到其不同的对象，这个域调用的方法也会有不同的行为。即实现了runtime动态灵活性。
+
+设计时选择合成/继承的guideline是：要表现不同行为时选择继承；要表现状态变化时选择合成。
 #### 13. 简述RTTI的含义。 Eng P216
+Downcast时，需要有某种机制来保证cast是正确的。该机制在runtime检查被downcast的对象是否确实属于目的类，若不是则返回**ClassCastException**。这个机制叫做RTTI(Runtime Type Identification)。
