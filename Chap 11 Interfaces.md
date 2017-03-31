@@ -119,10 +119,16 @@ public interface Months {
 随着Java SE5中enum类的出现，可以不再使用interface中的域，但在一些古早代码中可能出现，会读即可。
 
  #### 20. interface的域是否属于该interface? Eng P236 （疑惑）
+ The fields, of course, are not part of the interface. The values are stored in the static storage area for that interface.
  
  #### 21. 类中的嵌套interface和interface中嵌套interface在定义上有何区别?  Eng P238
- #### 22. 笔记：Notice that when you implement an interface, you are not required to implement any interfaces nested within. Also,  **private** interfaces cannot be implemented outside of their defining classes.
+ 类中的嵌套interface可以设置任何访问控制。interface中的所有element必须是public的，所以其中嵌套的interface也必须为public。
+ 
+ #### 22. 笔记：
+ Notice that when you implement an interface, you are not required to implement any interfaces nested within. Also,  **private** interfaces cannot be implemented outside of their defining classes.
+ 
  #### 23. 如何避免过度使用interface使代码太过复杂？Eng P241
+ 一个好的方法是先把所有东西写成类，当代码变大时进行refactor，此时再考虑使用interface。否则，interface很容易被滥用。
  #### 疑惑：
  
  P230. "Multiple inheritance": 
