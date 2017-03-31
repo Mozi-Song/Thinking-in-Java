@@ -99,4 +99,134 @@ class FilterAdapter implements Processor {
  综上所述，应该尽量避免同名函数。
  
  #### 18. 使用interface而非class作为方法参数的好处? Eng P235
- 可把任何类adapthc
+ 可把任何类adapt成这个方法可以使用的类。
+ 
+#### 19. 如何看待interface中的域与enum类之间的关系? Eng P236
+由于interface中的域天生为static final的，它们相当于enum类。如：
+```Java
+//: interfaces/Months.java
+// Using interfaces to create groups of constants.
+package interfaces;
+
+public interface Months {
+  int
+    JANUARY = 1, FEBRUARY = 2, MARCH = 3,
+    APRIL = 4, MAY = 5, JUNE = 6, JULY = 7,
+    AUGUST = 8, SEPTEMBER = 9, OCTOBER = 10,
+    NOVEMBER = 11, DECEMBER = 12;
+} ///:~
+```
+随着Java SE5中enum类的出现，可以不再使用interface中的域，但在一些古早代码中可能出现，会读即可。
+
+ #### 20. interface的域是否属于该interface? Eng P236 （疑惑）
+ 
+ #### 21. 类中的嵌套interface和interface中嵌套interface在定义上有何区别?  Eng P238
+ #### 22. 笔记：Notice that when you implement an interface, you are not required to implement any interfaces nested within. Also,  **private** interfaces cannot be implemented outside of their defining classes.
+ #### 23. 如何避免过度使用interface使代码太过复杂？Eng P241
+ #### 疑惑：
+ 
+ P230. "Multiple inheritance": 
+ Because an interface has no implementation at all—that is, there is no storage associated with an interface—there’s nothing to prevent many interfaces from being combined.
+ 
+ P236. "Nesting Interface": 
+ ```java
+//: interfaces/nesting/NestingInterfaces.java
+package interfaces.nesting;
+
+class A {
+  interface B {
+    void f();
+  }
+  public class BImp implements B {
+    public void f() {}
+  }
+  private class BImp2 implements B {
+    public void f() {}
+  }
+  public interface C {
+    void f();
+  }
+  class CImp implements C {
+    public void f() {}
+  }	
+  private class CImp2 implements C {
+    public void f() {}
+  }
+  private interface D {
+    void f();
+  }
+  private class DImp implements D {
+    public void f() {}
+  }
+  public class DImp2 implements D {
+    public void f() {}
+  }
+  public D getD() { return new DImp2(); }
+  private D dRef;
+  public void receiveD(D d) {
+    dRef = d;
+    dRef.f();
+  }
+}	
+
+interface E {
+  interface G {
+    void f();
+  }
+  // Redundant "public":
+  public interface H {
+    void f();
+  }
+  void g();
+  // Cannot be private within an interface:
+  //! private interface I {}
+}	
+
+public class NestingInterfaces {
+  public class BImp implements A.B {
+    public void f() {}
+  }
+  class CImp implements A.C {
+    public void f() {}
+  }
+  // Cannot implement a private interface except
+  // within that interface's defining class:
+  //! class DImp implements A.D {
+  //!  public void f() {}
+  //! }
+  class EImp implements E {
+    public void g() {}
+  }
+  class EGImp implements E.G {
+    public void f() {}
+  }
+  class EImp2 implements E {
+    public void g() {}
+    class EG implements E.G {
+      public void f() {}
+    }
+  }	
+  public static void main(String[] args) {
+    A a = new A();
+    // Can't access A.D:
+    //! A.D ad = a.getD();
+    // Doesn't return anything but A.D:
+    //! A.DImp2 di2 = a.getD();
+	a.receiveD(a.new DImp2());
+    // Cannot access a member of the interface:
+    //! a.getD().f();
+    // Only another A can do anything with getD():
+    A a2 = new A();
+    a2.receiveD(a.getD());
+  }
+} ///:~
+```
+
+...**A.DImp2** can only be used as itself. You are not allowed to mention the fact that it implements the **private** interface D, so implementing a **private** interface is a way to force the definition of the methods in that interface without adding any type information (that is, without allowing any upcasting).
+
+ (疑惑点:以上一段英文表示class中虽然可以定义private interface，但可以有一个嵌套的public class来实现该interface。private interface的意义在于隐藏了D <- DImp2这层继承关系，所以DImp2不能被upcast到D。然而以上代码`a.receiveD(a.new DImp2());`可以通过编译，这证明compilor是了解D <- DImp2这层继承关系的。目前尚不清楚这个情景的应用意义和特殊之处。）
+ 
+ P240.Interfaces and Factories: 
+ ...Without the Factory Method, your code would somewhere have to specify the exact type of **Service** being created, so that it could call the appropriate constructor.
+ 
+Why would you want to add this extra level of indirection? One common reason is to create a framework.
