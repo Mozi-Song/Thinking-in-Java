@@ -79,5 +79,6 @@ class Composing{
 ```
 
 #### 11. Java SE5引入了covariance return types。解释其含义。 Eng P212
+
 #### 12. State Pattern的意义是什么(->Thinking in Patterns (with Java) www.MindView.com)； 设计时选择合成/继承的guideline是什么？ Eng P213
 #### 13. 简述RTTI的含义。 Eng P216
